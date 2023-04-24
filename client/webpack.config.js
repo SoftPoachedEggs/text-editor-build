@@ -19,76 +19,52 @@ module.exports = () => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './src/index.html',
-        chunks: ['main'],
-        filename: 'index.html',
-      }),
-      new HtmlWebpackPlugin({
-        template: './src/install.html',
-        chunks: ['install'],
-        filename: 'install.html',
+        template: './index.html',
+        title: 'JATE'
       }),
       new WebpackPwaManifest({
-        name: 'My PWA',
-        short_name: 'MyPWA',
+        name: 'Just Another Text Editor',
+        inject: true,
+        short_name: 'J.A.T.E',
         description: 'This is my PWA',
         background_color: '#ffffff',
         theme_color: '#007bff',
         icons: [
           {
-            src: path.resolve('src/assets/images/logo.png'),
+            src: path.resolve('src/images/logo.png'),
             sizes: [96, 128, 192, 256, 384, 512],
             destination: path.join('icons'),
           },
         ],
-        start_url: './index.html',
-        display: 'standalone',
+        start_url: '/',
+        publicPath: '/'
       }),
       new InjectManifest({
-        swSrc: './src/js/sw.js',
-        swDest: 'sw.js',
+        swSrc: './src-sw.js',
+        swDest: 'sw-sw.js',
       }),
     ],
 
     module: {
       rules: [
         {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
+          test: /\.css$/i,
+          use: ["style-loader", "css-loader"],
         },
         {
-          test: /\.js$/,
+          test: /\.m?js$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader',
+            loader: "babel-loader",
             options: {
-              presets: ['@babel/preset-env'],
+              presets: ["@babel/preset-env"],
+              plugins: [
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/transform-runtime",
+              ],
             },
           },
         },
-      ],
-    },
-  };
-};
-
-module.exports = () => {
-  return {
-    mode: 'development',
-    entry: {
-      main: './src/js/index.js',
-      install: './src/js/install.js'
-    },
-    output: {
-      filename: '[name].bundle.js',
-      path: path.resolve(__dirname, 'dist'),
-    },
-    plugins: [
-      
-    ],
-
-    module: {
-      rules: [
-        
       ],
     },
   };
