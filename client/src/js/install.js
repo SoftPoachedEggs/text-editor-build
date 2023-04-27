@@ -1,30 +1,29 @@
 const butInstall = document.getElementById('buttonInstall');
 
-let deferredPrompt;
-
 // Logic for installing the PWA
 window.addEventListener('beforeinstallprompt', (event) => {
   // Prevent Chrome 67 and earlier from automatically showing the prompt
   event.preventDefault();
 
   // Stash the event so it can be triggered later.
-  deferredPrompt = event;
-
+  window.deferredPrompt = event;
   // Show the install button
   butInstall.style.display = 'block';
 });
 
 // Event handler for the install button click
 butInstall.addEventListener('click', async () => {
-  if (deferredPrompt) {
+  console.log('clicked', butInstall);
+
+  if (window.deferredPrompt) {
     // Show the prompt
-    deferredPrompt.prompt();
+    window.deferredPrompt.prompt();
 
     // Wait for the user to respond to the prompt
-    const result = await deferredPrompt.userChoice;
+    const result = await window.deferredPrompt.userChoice;
 
     // Reset the deferredPrompt variable
-    deferredPrompt = null;
+    window.deferredPrompt = null;
 
     // Hide the install button
     butInstall.style.display = 'none';
