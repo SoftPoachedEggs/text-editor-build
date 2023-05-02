@@ -16,7 +16,7 @@ const initdb = async () =>
     const db = await openDB('JATE', 1);
     const tx = db.transaction('JATE', 'readwrite');
     const store = tx.objectStore('JATE');
-    await store.add(content);
+    await store.put({id: 1, value: content});
     await tx.complete;
     console.log('Added to JATE database: ', content);
   };

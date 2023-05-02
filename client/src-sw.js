@@ -1,6 +1,6 @@
 // Import Workbox modules
 const { offlineFallback, warmStrategyCache } = require("workbox-recipes");
-const { CacheFirst } = require("workbox-strategies");
+const { CacheFirst, StaleWhileRevalidate } = require("workbox-strategies");
 const { registerRoute } = require("workbox-routing");
 const { CacheableResponsePlugin } = require("workbox-cacheable-response");
 const { ExpirationPlugin } = require("workbox-expiration");
@@ -23,11 +23,11 @@ const pageCache = new CacheFirst({
 });
 
 // // Define a matchCallback function to determine which requests to cache as static resources
-// const cacheName = "static-resources";
-// const matchCallback = ({ request }) => {
-//   console.log(request);
-//   return request.destination === "style" || request.destination === "script";
-// };
+const cacheName = "static-resources";
+const matchCallback = ({ request }) => {
+  console.log(request);
+  return request.destination === "style" || request.destination === "script";
+};
 
 // Warm the cache by pre-caching specified URLs with the pageCache strategy
 warmStrategyCache({
