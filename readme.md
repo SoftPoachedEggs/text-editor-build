@@ -15,7 +15,6 @@ Download repo. Install packages. Use NPM Run Build. Run app by using NPM Run Dev
 ## Use
 For educational purposes only
 ## Visual
-![Visual]()
 <img width="1435" alt="Screenshot 2023-05-05 at 4 19 36 PM" src="https://user-images.githubusercontent.com/115499632/236561547-d13f39dd-446c-4acd-937a-89af74079165.png">
 
 ## Contributing
